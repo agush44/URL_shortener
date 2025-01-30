@@ -1,42 +1,109 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
+}
+
+.app-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: rgb(217, 187, 200);
+  background: radial-gradient(
+    circle,
+    rgba(217, 187, 200, 1) 0%,
+    rgba(192, 183, 252, 1) 50%,
+    rgba(71, 151, 246, 1) 100%
+  );
+}
+
+h1 {
+  font-family: "Press Start 2P", serif;
+  color: #333;
   padding: 2rem;
+}
+
+.card-container {
+  background-color: #fff;
+  height: 30%;
+  width: 30%;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  opacity: 0.95;
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.label {
+  text-align: left;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.input-box {
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
 }
 
-.card {
-  padding: 2em;
+.shorten-button {
+  background-color: #579bf6;
+  color: #333;
+  margin: 1rem;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.read-the-docs {
-  color: #888;
+.shorten-button:disabled {
+  opacity: 0.5;
+}
+
+.shorten-button:hover:not(:disabled) {
+  background-color: #004d40;
+}
+
+.shortened-url {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shortened-url a {
+  color: #00796b;
+  text-decoration: none;
+}
+
+.shortened-url button {
+  background-color: #eeeeee;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.shortened-url button:hover {
+  background-color: #c0c0c0;
 }
