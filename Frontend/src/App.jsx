@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import icon from "./assets/icon.png";
 import "./App.css";
 
 export default function UrlShortener() {
@@ -13,51 +14,42 @@ export default function UrlShortener() {
     return regex.test(url);
   };
 
-  useEffect(() => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-    if (originalUrl && isValidUrl(originalUrl)) {
-      const shortenUrl = async () => {
-        setLoading(true);
-        setError(null);
-        setShortUrl("");
-
-        try {
-          const response = await fetch(`${backendUrl}/urls/shorten`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ originalUrl }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.message || "Failed to shorten URL");
-          }
-
-          setShortUrl(data.shortUrl);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      shortenUrl();
-    }
-  }, [originalUrl]);
-
   const handleChange = (e) => {
     setOriginalUrl(e.target.value);
     setIsTouched(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isValidUrl(originalUrl)) {
-      setOriginalUrl(originalUrl);
-    } else {
+
+    if (!isValidUrl(originalUrl)) {
       setError("Please enter a valid URL.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setShortUrl("");
+
+    try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${backendUrl}/shorten`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ originalUrl }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to shorten URL");
+      }
+
+      setShortUrl(`${backendUrl}/${data.shortUrl}`);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +57,7 @@ export default function UrlShortener() {
     <div className="app-container">
       <h1>URL Shortener</h1>
       <div className="card-container">
+        <img src={icon} alt="Icon" width="30" height="30" className="icon" />
         <p className="label">Shorten a long URL</p>
         <div className="input-container">
           <input
@@ -74,24 +67,20 @@ export default function UrlShortener() {
             value={originalUrl}
             onChange={handleChange}
           />
-          {loading ? (
-            <p>Shortening...</p>
-          ) : (
-            <button
-              className="shorten-button"
-              onClick={handleSubmit}
-              disabled={!originalUrl || loading}
-            >
-              Shorten URL
-            </button>
-          )}
+          <button
+            className="shorten-button"
+            onClick={handleSubmit}
+            disabled={!originalUrl || loading}
+          >
+            {loading ? "Shortening..." : "Shorten URL"}
+          </button>
         </div>
 
         {isTouched && error && <p style={{ color: "red" }}>{error}</p>}
 
         {shortUrl && (
-          <div>
-            <p>Shortened URL:</p>
+          <div className="shortened-url-container">
+            <p className="shortened-url">Shortened URL:</p>
             <a href={shortUrl} target="_blank" rel="noopener noreferrer">
               {shortUrl}
             </a>

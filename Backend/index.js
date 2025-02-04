@@ -16,7 +16,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api/urls", urlRoutes);
+app.use("/", urlRoutes);
 
 app.use(errorMiddleware);
 
