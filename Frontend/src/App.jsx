@@ -1,5 +1,4 @@
 import { useState } from "react";
-import icon from "./assets/icon.png";
 import "./App.css";
 
 export default function UrlShortener() {
