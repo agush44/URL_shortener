@@ -57,7 +57,13 @@ export default function UrlShortener() {
     <div className="app-container">
       <h1>URL Shortener</h1>
       <div className="card-container">
-        <img src={icon} alt="Icon" width="30" height="30" className="icon" />
+        <img
+          src="/icon.png"
+          alt="Icon"
+          width="30"
+          height="30"
+          className="icon"
+        />
         <p className="label">Shorten a long URL</p>
         <div className="input-container">
           <input
