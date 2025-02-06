@@ -20,6 +20,7 @@ This is a URL shortening project developed with **React** and **Vite** for the f
 - **Backend**:
   - API to shorten URLs (Express.js)
   - Database (MongoDB)
+  - Node.js (Backend runtime)
 
 ## Live Demo
 
